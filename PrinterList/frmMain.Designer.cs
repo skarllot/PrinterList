@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.cmbPrinterList = new System.Windows.Forms.ComboBox();
             this.txtPrinterProperties = new System.Windows.Forms.TextBox();
@@ -35,6 +36,8 @@
             this.btnPrintTest = new System.Windows.Forms.Button();
             this.btnDetails = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,6 +93,7 @@
             this.btnPrintTest.Name = "btnPrintTest";
             this.btnPrintTest.Size = new System.Drawing.Size(24, 22);
             this.btnPrintTest.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.btnPrintTest, "Imprimir Página de Teste");
             this.btnPrintTest.UseVisualStyleBackColor = true;
             this.btnPrintTest.Click += new System.EventHandler(this.btnPrintTest_Click);
             // 
@@ -101,6 +105,7 @@
             this.btnDetails.Name = "btnDetails";
             this.btnDetails.Size = new System.Drawing.Size(24, 22);
             this.btnDetails.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.btnDetails, "Detalhes da Impressora");
             this.btnDetails.UseVisualStyleBackColor = true;
             this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
             // 
@@ -111,8 +116,15 @@
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(24, 22);
             this.btnReload.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.btnReload, "Recarrega a lista de impressoras.\r\nAtivado apenas quando uma nova impressora é en" +
+        "contrada.");
             this.btnReload.UseVisualStyleBackColor = true;
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmMain
             // 
@@ -139,6 +151,8 @@
         private System.Windows.Forms.Button btnDetails;
         private System.Windows.Forms.Button btnPrintTest;
         private System.Windows.Forms.Button btnReload;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

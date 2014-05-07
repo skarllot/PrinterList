@@ -8,6 +8,8 @@ namespace PrintingTest
     public partial class frmMain : Form
     {
         ManagementObject currentPrinter;
+        System.Drawing.Printing.PrinterSettings.StringCollection printerList;
+        float CELL_BUTTON_WIDTH = 30f;
 
         public frmMain()
         {
@@ -16,12 +18,17 @@ namespace PrintingTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ChangePrinterButtonsVisibility(false);
+            printerList = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
             LoadList();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnDetails.Enabled = btnPrintTest.Enabled = cmbPrinterList.SelectedIndex != -1;
+            bool isSel = cmbPrinterList.SelectedIndex != -1;
+            btnDetails.Enabled = btnPrintTest.Enabled = isSel;
+            ChangePrinterButtonsVisibility(isSel);
+
             txtPrinterProperties.Text = string.Empty;
 
             if (currentPrinter != null)
@@ -84,12 +91,48 @@ namespace PrintingTest
             cmbPrinterList.Items.Clear();
 
             if (currentPrinter != null)
-                currentPrinter.Dispose();
-
-            foreach (string item in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
             {
-                cmbPrinterList.Items.Add(item);
+                currentPrinter.Dispose();
+                currentPrinter = null;
             }
+
+            foreach (string item in printerList)
+                cmbPrinterList.Items.Add(item);
+
+            btnReload.Enabled = false;
+            ChangeReloadButtonVisibility(false);
+            timer1.Enabled = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            printerList = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
+
+            if (printerList.Count != cmbPrinterList.Items.Count)
+            {
+                btnReload.Enabled = true;
+                ChangeReloadButtonVisibility(true);
+                timer1.Enabled = false;
+            }
+        }
+
+        private void ChangeReloadButtonVisibility(bool visible)
+        {
+            if (visible)
+                tableLayoutPanel1.ColumnStyles[1].Width = CELL_BUTTON_WIDTH;
+            else
+                tableLayoutPanel1.ColumnStyles[1].Width = 0f;
+        }
+
+        private void ChangePrinterButtonsVisibility(bool visible)
+        {
+            if (visible)
+                tableLayoutPanel1.ColumnStyles[2].Width =
+                    tableLayoutPanel1.ColumnStyles[3].Width =
+                    CELL_BUTTON_WIDTH;
+            else
+                tableLayoutPanel1.ColumnStyles[2].Width =
+                    tableLayoutPanel1.ColumnStyles[3].Width = 0f;
         }
     }
 }

@@ -32,7 +32,10 @@ namespace PrintingTest
             txtPrinterProperties.Text = string.Empty;
 
             if (currentPrinter != null)
+            {
                 currentPrinter.Dispose();
+                currentPrinter = null;
+            }
         }
 
         private void btnDetails_Click(object sender, EventArgs e)

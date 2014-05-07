@@ -16,10 +16,7 @@ namespace PrintingTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (string item in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
-            {
-                cmbPrinterList.Items.Add(item);
-            }
+            LoadList();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -29,6 +26,39 @@ namespace PrintingTest
 
             if (currentPrinter != null)
                 currentPrinter.Dispose();
+        }
+
+        private void btnDetails_Click(object sender, EventArgs e)
+        {
+            LazyLoadWmi();
+            txtPrinterProperties.Text = string.Empty;
+
+            foreach (PropertyData property in currentPrinter.Properties)
+                txtPrinterProperties.Text += string.Format("{0}: {1}\r\n", property.Name, property.Value);
+        }
+
+        private void btnPrintTest_Click(object sender, EventArgs e)
+        {
+            LazyLoadWmi();
+
+            uint ret = Convert.ToUInt32(currentPrinter.InvokeMethod("PrintTestPage", null));
+            if (ret != 0)
+                MessageBox.Show(this, "Erro ao imprimir página de teste.", "Impressão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+                MessageBox.Show(this, "Impressão enviada a impressora com sucesso.", "Impressão", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            LoadList();
+        }
+
+        private void LazyLoadWmi()
+        {
+            if (currentPrinter != null)
+                return;
+
+            txtPrinterProperties.Text = "Loading WMI...";
 
             string printerName = ((string)cmbPrinterList.SelectedItem).Replace(@"\", @"\\");
             string query = string.Format("SELECT * from Win32_Printer WHERE Name = \"{0}\"", printerName);
@@ -44,23 +74,22 @@ namespace PrintingTest
             prnenum.MoveNext();
             currentPrinter = (ManagementObject)prnenum.Current;
             searcher.Dispose();
-        }
 
-        private void btnDetails_Click(object sender, EventArgs e)
-        {
             txtPrinterProperties.Text = string.Empty;
-
-            foreach (PropertyData property in currentPrinter.Properties)
-                txtPrinterProperties.Text += string.Format("{0}: {1}\r\n", property.Name, property.Value);
         }
 
-        private void btnPrintTest_Click(object sender, EventArgs e)
+        private void LoadList()
         {
-            uint ret = Convert.ToUInt32(currentPrinter.InvokeMethod("PrintTestPage", null));
-            if (ret != 0)
-                MessageBox.Show(this, "Erro ao imprimir página de teste.", "Impressão", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-                MessageBox.Show(this, "Impressão enviada a impressora com sucesso.", "Impressão", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cmbPrinterList.SelectedIndex = -1;
+            cmbPrinterList.Items.Clear();
+
+            if (currentPrinter != null)
+                currentPrinter.Dispose();
+
+            foreach (string item in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                cmbPrinterList.Items.Add(item);
+            }
         }
     }
 }

@@ -63,9 +63,9 @@ namespace PrinterList.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap print_icon {
+        internal static System.Drawing.Bitmap information_16 {
             get {
-                object obj = ResourceManager.GetObject("print_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("information_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace PrinterList.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap reload_icon {
+        internal static System.Drawing.Bitmap printer_add_16 {
             get {
-                object obj = ResourceManager.GetObject("reload_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("printer_add_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace PrinterList.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap search_icon {
+        internal static System.Drawing.Bitmap printer_run_16 {
             get {
-                object obj = ResourceManager.GetObject("search_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("printer_run_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

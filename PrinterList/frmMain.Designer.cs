@@ -33,109 +33,77 @@
             this.cmbPrinterList = new System.Windows.Forms.ComboBox();
             this.txtPrinterProperties = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnPrintTest = new System.Windows.Forms.Button();
             this.btnDetails = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbPrinterList
             // 
-            this.cmbPrinterList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.cmbPrinterList, "cmbPrinterList");
             this.cmbPrinterList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPrinterList.FormattingEnabled = true;
-            this.cmbPrinterList.Location = new System.Drawing.Point(3, 3);
             this.cmbPrinterList.Name = "cmbPrinterList";
-            this.cmbPrinterList.Size = new System.Drawing.Size(259, 21);
-            this.cmbPrinterList.TabIndex = 0;
             this.cmbPrinterList.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // txtPrinterProperties
             // 
             this.txtPrinterProperties.AcceptsReturn = true;
-            this.txtPrinterProperties.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPrinterProperties.Location = new System.Drawing.Point(12, 46);
-            this.txtPrinterProperties.Multiline = true;
+            resources.ApplyResources(this.txtPrinterProperties, "txtPrinterProperties");
             this.txtPrinterProperties.Name = "txtPrinterProperties";
             this.txtPrinterProperties.ReadOnly = true;
-            this.txtPrinterProperties.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtPrinterProperties.Size = new System.Drawing.Size(355, 183);
-            this.txtPrinterProperties.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.cmbPrinterList, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnPrintTest, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnDetails, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnReload, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(355, 28);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // btnPrintTest
-            // 
-            this.btnPrintTest.Enabled = false;
-            this.btnPrintTest.Image = global::PrinterList.Properties.Resources.print_icon;
-            this.btnPrintTest.Location = new System.Drawing.Point(328, 3);
-            this.btnPrintTest.Name = "btnPrintTest";
-            this.btnPrintTest.Size = new System.Drawing.Size(24, 22);
-            this.btnPrintTest.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.btnPrintTest, "Imprimir Página de Teste");
-            this.btnPrintTest.UseVisualStyleBackColor = true;
-            this.btnPrintTest.Click += new System.EventHandler(this.btnPrintTest_Click);
-            // 
-            // btnDetails
-            // 
-            this.btnDetails.Enabled = false;
-            this.btnDetails.Image = global::PrinterList.Properties.Resources.search_icon;
-            this.btnDetails.Location = new System.Drawing.Point(298, 3);
-            this.btnDetails.Name = "btnDetails";
-            this.btnDetails.Size = new System.Drawing.Size(24, 22);
-            this.btnDetails.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.btnDetails, "Detalhes da Impressora");
-            this.btnDetails.UseVisualStyleBackColor = true;
-            this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
-            // 
-            // btnReload
-            // 
-            this.btnReload.Image = global::PrinterList.Properties.Resources.reload_icon;
-            this.btnReload.Location = new System.Drawing.Point(268, 3);
-            this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(24, 22);
-            this.btnReload.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.btnReload, "Recarrega a lista de impressoras.\r\nAtivado apenas quando uma nova impressora é en" +
-        "contrada.");
-            this.btnReload.UseVisualStyleBackColor = true;
-            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
             // timer1
             // 
             this.timer1.Interval = 1500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btnPrintTest
+            // 
+            resources.ApplyResources(this.btnPrintTest, "btnPrintTest");
+            this.btnPrintTest.Image = global::PrinterList.Properties.Resources.printer_run_16;
+            this.btnPrintTest.Name = "btnPrintTest";
+            this.toolTip1.SetToolTip(this.btnPrintTest, resources.GetString("btnPrintTest.ToolTip"));
+            this.btnPrintTest.UseVisualStyleBackColor = true;
+            this.btnPrintTest.Click += new System.EventHandler(this.btnPrintTest_Click);
+            // 
+            // btnDetails
+            // 
+            resources.ApplyResources(this.btnDetails, "btnDetails");
+            this.btnDetails.Image = global::PrinterList.Properties.Resources.information_16;
+            this.btnDetails.Name = "btnDetails";
+            this.toolTip1.SetToolTip(this.btnDetails, resources.GetString("btnDetails.ToolTip"));
+            this.btnDetails.UseVisualStyleBackColor = true;
+            this.btnDetails.Click += new System.EventHandler(this.btnDetails_Click);
+            // 
+            // btnReload
+            // 
+            this.btnReload.Image = global::PrinterList.Properties.Resources.printer_add_16;
+            resources.ApplyResources(this.btnReload, "btnReload");
+            this.btnReload.Name = "btnReload";
+            this.toolTip1.SetToolTip(this.btnReload, resources.GetString("btnReload.ToolTip"));
+            this.btnReload.UseVisualStyleBackColor = true;
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 241);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.txtPrinterProperties);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
-            this.Text = "Lista de Impressoras";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

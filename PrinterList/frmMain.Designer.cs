@@ -1,4 +1,4 @@
-﻿namespace PrintingTest
+﻿namespace PrinterList
 {
     partial class frmMain
     {
@@ -33,11 +33,11 @@
             this.cmbPrinterList = new System.Windows.Forms.ComboBox();
             this.txtPrinterProperties = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnPrintTest = new System.Windows.Forms.Button();
             this.btnDetails = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,11 +65,6 @@
             this.tableLayoutPanel1.Controls.Add(this.btnReload, 1, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // btnPrintTest
             // 
             resources.ApplyResources(this.btnPrintTest, "btnPrintTest");
@@ -96,6 +91,11 @@
             this.toolTip1.SetToolTip(this.btnReload, resources.GetString("btnReload.ToolTip"));
             this.btnReload.UseVisualStyleBackColor = true;
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmMain
             // 

@@ -21,13 +21,15 @@ using System.Collections;
 using System.Management;
 using System.Windows.Forms;
 
-namespace PrintingTest
+namespace PrinterList
 {
     public partial class frmMain : Form
     {
         ManagementObject currentPrinter;
         System.Drawing.Printing.PrinterSettings.StringCollection printerList;
         float CELL_BUTTON_WIDTH = 30f;
+        const string WMI_GET_PRINTER_DETAILS = "SELECT * from Win32_Printer WHERE Name = \"{0}\"";
+        const string WMI_METHOD_PRINT_TEST_PAGE = "PrintTestPage";
 
         public frmMain()
         {
@@ -69,11 +71,11 @@ namespace PrintingTest
         {
             LazyLoadWmi();
 
-            uint ret = Convert.ToUInt32(currentPrinter.InvokeMethod("PrintTestPage", null));
+            uint ret = Convert.ToUInt32(currentPrinter.InvokeMethod(WMI_METHOD_PRINT_TEST_PAGE, null));
             if (ret != 0)
-                MessageBox.Show(this, "Erro ao imprimir página de teste.", "Impressão", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, resMessages.PrintTest_Fail, resMessages.PrintTest_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
-                MessageBox.Show(this, "Impressão enviada a impressora com sucesso.", "Impressão", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this, resMessages.PrintTest_Success, resMessages.PrintTest_Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -86,15 +88,15 @@ namespace PrintingTest
             if (currentPrinter != null)
                 return;
 
-            txtPrinterProperties.Text = "Loading WMI...";
+            txtPrinterProperties.Text = resMessages.WmiGetPrinter_Loading;
 
             string printerName = ((string)cmbPrinterList.SelectedItem).Replace(@"\", @"\\");
-            string query = string.Format("SELECT * from Win32_Printer WHERE Name = \"{0}\"", printerName);
+            string query = string.Format(WMI_GET_PRINTER_DETAILS, printerName);
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
             ManagementObjectCollection coll = searcher.Get();
             if (coll.Count != 1)
             {
-                txtPrinterProperties.Text = "Erro ao obter objeto WMI";
+                txtPrinterProperties.Text = resMessages.WmiGetPrinter_Error;
                 return;
             }
 

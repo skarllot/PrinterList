@@ -19,7 +19,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace PrintingTest
+namespace PrinterList
 {
     static class Program
     {
@@ -29,6 +29,8 @@ namespace PrintingTest
         [STAThread]
         static void Main()
         {
+            resMessages.Culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMain());

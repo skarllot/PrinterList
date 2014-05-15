@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>gnome_document_print.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\oxygen-printer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -108,7 +108,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="gnome_document_print.ico" />
+    <Content Include="Resources\oxygen-printer.ico" />
     <None Include="Resources\printer_add_16.png" />
     <None Include="Resources\information_16.png" />
     <None Include="Resources\printer_run_16.png" />

@@ -27,7 +27,13 @@ namespace PrinterList
     {
         ManagementObject currentPrinter;
         System.Drawing.Printing.PrinterSettings.StringCollection printerList;
-        float CELL_BUTTON_WIDTH = 30f;
+        const float CELL_BUTTON_WIDTH_DEFAULT = 30f;
+        const float CELL_BUTTON_WIDTH_HIDE = 0f;
+        const int CELL_INDEX_BUTTON_RELOAD = 1;
+        const int CELL_INDEX_BUTTON_INFO = 2;
+        const int CELL_INDEX_BUTTON_PRINTTEST = 3;
+        const string PRINTER_DETAILS_LINE_FORMAT = "{0}: {1}\r\n";
+        const int SELECTED_INDEX_NONE = -1;
         const string WMI_GET_PRINTER_DETAILS = "SELECT * from Win32_Printer WHERE Name = \"{0}\"";
         const string WMI_METHOD_PRINT_TEST_PAGE = "PrintTestPage";
 
@@ -45,14 +51,13 @@ namespace PrinterList
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool isSel = cmbPrinterList.SelectedIndex != -1;
+            bool isSel = cmbPrinterList.SelectedIndex != SELECTED_INDEX_NONE;
             btnDetails.Enabled = btnPrintTest.Enabled = isSel;
             ChangePrinterButtonsVisibility(isSel);
 
             txtPrinterProperties.Text = string.Empty;
 
-            if (currentPrinter != null)
-            {
+            if (currentPrinter != null) {
                 currentPrinter.Dispose();
                 currentPrinter = null;
             }
@@ -63,8 +68,10 @@ namespace PrinterList
             LazyLoadWmi();
             txtPrinterProperties.Text = string.Empty;
 
-            foreach (PropertyData property in currentPrinter.Properties)
-                txtPrinterProperties.Text += string.Format("{0}: {1}\r\n", property.Name, property.Value);
+            foreach (PropertyData property in currentPrinter.Properties) {
+                txtPrinterProperties.Text += string.Format(
+                    PRINTER_DETAILS_LINE_FORMAT, property.Name, property.Value);
+            }
         }
 
         private void btnPrintTest_Click(object sender, EventArgs e)
@@ -72,10 +79,14 @@ namespace PrinterList
             LazyLoadWmi();
 
             uint ret = Convert.ToUInt32(currentPrinter.InvokeMethod(WMI_METHOD_PRINT_TEST_PAGE, null));
-            if (ret != 0)
-                MessageBox.Show(this, resMessages.PrintTest_Fail, resMessages.PrintTest_Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-                MessageBox.Show(this, resMessages.PrintTest_Success, resMessages.PrintTest_Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (ret != 0) {
+                MessageBox.Show(this, resMessages.PrintTest_Fail, resMessages.PrintTest_Title,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else {
+                MessageBox.Show(this, resMessages.PrintTest_Success, resMessages.PrintTest_Title,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -94,8 +105,7 @@ namespace PrinterList
             string query = string.Format(WMI_GET_PRINTER_DETAILS, printerName);
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
             ManagementObjectCollection coll = searcher.Get();
-            if (coll.Count != 1)
-            {
+            if (coll.Count != 1) {
                 txtPrinterProperties.Text = resMessages.WmiGetPrinter_Error;
                 return;
             }
@@ -110,11 +120,10 @@ namespace PrinterList
 
         private void LoadList()
         {
-            cmbPrinterList.SelectedIndex = -1;
+            cmbPrinterList.SelectedIndex = SELECTED_INDEX_NONE;
             cmbPrinterList.Items.Clear();
 
-            if (currentPrinter != null)
-            {
+            if (currentPrinter != null) {
                 currentPrinter.Dispose();
                 currentPrinter = null;
             }
@@ -131,8 +140,7 @@ namespace PrinterList
         {
             printerList = System.Drawing.Printing.PrinterSettings.InstalledPrinters;
 
-            if (printerList.Count != cmbPrinterList.Items.Count)
-            {
+            if (printerList.Count != cmbPrinterList.Items.Count) {
                 btnReload.Enabled = true;
                 ChangeReloadButtonVisibility(true);
                 timer1.Enabled = false;
@@ -141,21 +149,28 @@ namespace PrinterList
 
         private void ChangeReloadButtonVisibility(bool visible)
         {
-            if (visible)
-                tableLayoutPanel1.ColumnStyles[1].Width = CELL_BUTTON_WIDTH;
-            else
-                tableLayoutPanel1.ColumnStyles[1].Width = 0f;
+            if (visible) {
+                tableLayoutPanel1.ColumnStyles[CELL_INDEX_BUTTON_RELOAD].Width =
+                    CELL_BUTTON_WIDTH_DEFAULT;
+            }
+            else {
+                tableLayoutPanel1.ColumnStyles[CELL_INDEX_BUTTON_RELOAD].Width =
+                    CELL_BUTTON_WIDTH_HIDE;
+            }
         }
 
         private void ChangePrinterButtonsVisibility(bool visible)
         {
-            if (visible)
-                tableLayoutPanel1.ColumnStyles[2].Width =
-                    tableLayoutPanel1.ColumnStyles[3].Width =
-                    CELL_BUTTON_WIDTH;
-            else
-                tableLayoutPanel1.ColumnStyles[2].Width =
-                    tableLayoutPanel1.ColumnStyles[3].Width = 0f;
+            if (visible) {
+                tableLayoutPanel1.ColumnStyles[CELL_INDEX_BUTTON_INFO].Width =
+                    tableLayoutPanel1.ColumnStyles[CELL_INDEX_BUTTON_PRINTTEST].Width =
+                    CELL_BUTTON_WIDTH_DEFAULT;
+            }
+            else {
+                tableLayoutPanel1.ColumnStyles[CELL_INDEX_BUTTON_INFO].Width =
+                    tableLayoutPanel1.ColumnStyles[CELL_INDEX_BUTTON_PRINTTEST].Width =
+                    CELL_BUTTON_WIDTH_HIDE;
+            }
         }
     }
 }
